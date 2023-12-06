@@ -792,7 +792,6 @@ function(func, self, damage_profile, attacked_unit, attacking_unit, attack_direc
 				mod:update_stat("boss_damage_dealt", account_id, actual_damage)
 			end 
 
-			-- Enemy is normal
 			mod:update_stat("actual_damage_dealt", account_id, actual_damage)
 			mod:update_stat("overkill_damage_dealt", account_id, overkill_damage)
 
