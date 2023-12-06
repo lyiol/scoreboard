@@ -629,7 +629,7 @@ return {
 		["zh-cn"] = "实际 / 溢出伤害",
 	},
 	row_damage_dealt_2 = {
-		en = "Damage Dealt",
+		en = "Total Damage Dealt",
 		de = "Verursachter Schaden",
 		fr = "Dégâts infligés",
 		ru = "Урона нанесено",
@@ -656,6 +656,15 @@ return {
 		ru = "Избыточно",
 		["zh-cn"] = "溢出",
 	},
+    row_melee_damage_dealt = {
+        en = "Melee Damage",
+    },
+    row_ranged_damage_dealt = {
+        en = "Ranged Damage",
+    },
+    row_other_damage_dealt = {
+        en = "Other Damage",
+    },
 	-- Lesser enemies
 	plugin_lesser_enemies = {
 		en = "Lesser Enemies Killed",
@@ -776,14 +785,14 @@ return {
 	},
 	-- Special Threats
 	plugin_special_threats = {
-		en = "Specials Killed",
+		en = "Specials/Disablers Killed (1)",
 		de = "Spezialeinheiten Getötet",
 		fr = "Spéciaux tués",
 		ru = "Взрывун/Бомбардир/Огневик/Снайпер",
 		["zh-cn"] = "专家击杀",
 	},
 	row_special_threats = {
-		en = "Specials Killed",
+		en = "Specials/Disablers Killed (2)",
 		de = "Spezialeinheiten Getötet",
 		fr = "Spéciaux tués",
 		ru = "Взрывун/Бомбардир/Огневик/Снайпер",

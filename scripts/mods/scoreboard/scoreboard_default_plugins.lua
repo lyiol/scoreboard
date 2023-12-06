@@ -715,6 +715,8 @@ mod.bosses = {
 	"chaos_plague_ogryn",
 	"chaos_plague_ogryn_sprayer",
 	"renegade_captain",
+	"renegade_twin_captain",
+	"renegade_twin_captain_two",
 }
 mod.current_health = {}
 mod.last_enemy_interaction = {}
@@ -788,12 +790,24 @@ function(func, self, damage_profile, attacked_unit, attacking_unit, attack_direc
 			if table.array_contains(mod.bosses, breed_or_nil.name) then
 				-- Enemy is boss
 				mod:update_stat("boss_damage_dealt", account_id, actual_damage)
-				mod:update_stat("overkill_damage_dealt", account_id, overkill_damage)
+			end 
+
+			-- Enemy is normal
+			mod:update_stat("actual_damage_dealt", account_id, actual_damage)
+			mod:update_stat("overkill_damage_dealt", account_id, overkill_damage)
+
+			-- update melee/ranged damage
+			if (attack_type ~= nil) then
+				if (attack_type == "melee") then
+					mod:update_stat("melee_damage_dealt", account_id, actual_damage)
+				elseif (attack_type == "ranged") then
+					mod:update_stat("ranged_damage_dealt", account_id, actual_damage)
+				end
 			else
-				-- Enemy is normal
-				mod:update_stat("actual_damage_dealt", account_id, actual_damage)
-				mod:update_stat("overkill_damage_dealt", account_id, overkill_damage)
+				-- it's nil attack_type, like bleed?
+				mod:update_stat("other_damage_dealt", account_id, actual_damage)
 			end
+
 		end
 	end
 	-- Original function
