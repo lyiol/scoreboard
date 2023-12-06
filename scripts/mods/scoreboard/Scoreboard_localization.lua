@@ -657,13 +657,13 @@ return {
 		["zh-cn"] = "溢出",
 	},
     row_melee_damage_dealt = {
-        en = "Melee Damage",
+        en = "  Melee Damage",
     },
     row_ranged_damage_dealt = {
-        en = "Ranged Damage",
+        en = "  Ranged Damage",
     },
     row_other_damage_dealt = {
-        en = "Other Damage",
+        en = "  Other Damage",
     },
 	-- Lesser enemies
 	plugin_lesser_enemies = {

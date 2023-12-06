@@ -366,6 +366,14 @@ mod.create_row_widget = function(self, index, current_offset, visible_rows, this
     local name = "scoreboard_row_"..this_row.name
     local header = this_row.name == "header"
     local header_height = _settings.scoreboard_row_header_height
+
+    -- printing out all fields in a class
+    --if (this_row.name == "ranged_damage_dealt") then
+        --for key,value in pairs(this_row) do
+            --mod:echo("found member " .. key);
+        --end        
+    --end
+
     local row_height = (this_row.name == "score" or this_row.big) and 35
         or header and header_height
         or this_row.score and _settings.scoreboard_row_big_height
@@ -375,6 +383,16 @@ mod.create_row_widget = function(self, index, current_offset, visible_rows, this
         or this_row.score and 24
         or 16
     local height = scoreboard_widget.style.style_id_3.size[2]
+
+    if (this_row.less_important) then
+        row_height = row_height - 2
+        font_size = font_size - 4
+    end
+
+    if (this_row.more_important) then
+        row_height = row_height + 4
+        font_size = font_size + 2
+    end
     
     -- Vertical offset
     if this_row.parent then
@@ -458,7 +476,7 @@ mod.create_row_widget = function(self, index, current_offset, visible_rows, this
     end
 
     -- Set styles
-    pass_template[1].style.font_size = (header or this_row.big or this_row.score) and font_size or 14
+    pass_template[1].style.font_size = (header or this_row.big or this_row.score or this_row.less_important or this_row.more_important) and font_size or 14
     pass_template[1].style.size[2] = row_height
     for _, i in pairs(player_pass_map) do
         pass_template[i].style.font_size = font_size
