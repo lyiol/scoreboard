@@ -374,7 +374,7 @@ mod.create_row_widget = function(self, index, current_offset, visible_rows, this
         --end        
     --end
 
-    local row_height = (this_row.name == "score" or this_row.big) and 35
+    local row_height = (this_row.name == "score" or this_row.big or this_row.is_subheader) and 35
         or header and header_height
         or this_row.score and _settings.scoreboard_row_big_height
         or 18
@@ -554,6 +554,14 @@ mod.create_row_widget = function(self, index, current_offset, visible_rows, this
         if this_row.score and generate_scores > 1 then
             pass_template[1].value = ""
         end
+
+        if this_row.is_empty then
+            pass_template[1].value = ""
+        end
+
+        if this_row.is_subheader then
+            pass_template[1].style.text_vertical_alignment = "bottom"
+        end
     end
 
     -- Calculate row values
@@ -704,6 +712,10 @@ mod.create_row_widget = function(self, index, current_offset, visible_rows, this
                     score = ""
                 end
 
+                if (this_row.is_empty or this_row.is_subheader) then
+                    score = ""
+                end
+
                 if this_row.icon then
                     pass_template[icon_pass_map[tostring(pass_index)]].value = this_row.icon
                 else
@@ -734,12 +746,16 @@ mod.create_row_widget = function(self, index, current_offset, visible_rows, this
     elseif not this_row.parent then
         for _, i in pairs(background_pass_map) do
             pass_template[i].style.size[2] = row_height
+            --[[ This removes horizontal zebrastripes on subheader rows
+            if (this_row.is_subheader) then
+                pass_template[i].style.size[2] = 0
+            end
+            --]]
         end
         pass_template[#pass_template].style.visible = false
     else
         pass_template[#pass_template].style.visible = false
     end
-
     -- Create widget
     local widget_definition = UIWidget.create_definition(pass_template, "scoreboard_rows", nil, size)
 

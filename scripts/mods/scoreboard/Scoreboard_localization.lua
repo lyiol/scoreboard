@@ -629,7 +629,7 @@ return {
 		["zh-cn"] = "实际 / 溢出伤害",
 	},
 	row_damage_dealt_2 = {
-		en = "Total Damage Dealt",
+		en = "Total Damage",
 		de = "Verursachter Schaden",
 		fr = "Dégâts infligés",
 		ru = "Урона нанесено",
@@ -657,14 +657,29 @@ return {
 		["zh-cn"] = "溢出",
 	},
     row_melee_damage_dealt = {
-        en = "  Melee Damage",
+        en = "    Melee Damage",
     },
     row_ranged_damage_dealt = {
-        en = "  Ranged Damage",
+        en = "    Ranged Damage",
     },
     row_other_damage_dealt = {
-        en = "  Other Damage",
+        en = "    Other Damage",
     },
+	subheader_damage_breakdown = {
+		en = "Damage By Enemies",
+	},
+	subheader_damage_others = {
+		en = "Others",
+	},
+	subheader_total_damage_dealt = {
+		en = "Total Damage Dealt",
+	},
+	row_subheader_team = {
+		en = "Team",
+	},
+	row_subheader_defense = {
+		en = "Defense",
+	},
 	-- Lesser enemies
 	plugin_lesser_enemies = {
 		en = "Lesser Enemies Killed",
@@ -695,6 +710,12 @@ return {
 		ru = "Урона нанесено Боссу",
 		["zh-cn"] = "Boss 伤害",
 	},
+	row_elites_damage_dealt = {
+        en = "Specials Damage Dealt",
+    },
+	row_lesser_damage_dealt = {
+        en = "Lessers Damage Dealt",
+    },
 	-- Enemies staggered
 	plugin_enemies_staggerd = {
 		en = "Enemies Staggered",
