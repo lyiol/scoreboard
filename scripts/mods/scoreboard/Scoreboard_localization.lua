@@ -762,14 +762,14 @@ return {
 		["zh-cn"] = "弱点 / 暴击命中",
 	},
 	row_weakspot_hits = {
-		en = "Weakspot",
+		en = "Weakspot Hits",
 		de = "Schwachpunkt",
 		fr = "Points Faibles",
 		ru = "Слабое место",
 		["zh-cn"] = "弱点",
 	},
 	row_critical_hits = {
-		en = "Critical",
+		en = "Critical Hits",
 		de = "Kritische",
 		fr = "Critiques",
 		ru = "Криты",
@@ -784,7 +784,7 @@ return {
 		["zh-cn"] = "近战 / 远程精英击杀",
 	},
 	row_melee_ranged_threats = {
-		en = "Melee / Ranged Elites Killed",
+		en = "Elites Killed",
 		de = "Nah- / Fernkampf Elite getötet",
 		fr = "Élites de Mêlée / Distance tués",
 		ru = "Убито элитных Милишников/Стрелков",
@@ -813,7 +813,7 @@ return {
 		["zh-cn"] = "专家击杀",
 	},
 	row_special_threats = {
-		en = "Specials/Disablers Killed (2)",
+		en = "Specials/Disablers Killed",
 		de = "Spezialeinheiten Getötet",
 		fr = "Spéciaux tués",
 		ru = "Взрывун/Бомбардир/Огневик/Снайпер",

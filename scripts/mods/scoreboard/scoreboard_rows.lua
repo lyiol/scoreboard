@@ -443,6 +443,7 @@ mod.scoreboard_rows = {
 		is_subheader = true,
 	},
 	-- Special hits
+	--[[
 	{name = "special_hits",
 		text = "row_special_hits",
 		validation = "ASC",
@@ -454,12 +455,12 @@ mod.scoreboard_rows = {
 		group = "offense",
 		setting = "plugin_special_hits",
 	},
+	--]]
 	{name = "weakspot_hits",
 		text = "row_weakspot_hits",
 		validation = "ASC",
 		iteration = "ADD",
 		group = "offense",
-		parent = "special_hits",
 		setting = "plugin_special_hits",
 	},
 	{name = "critical_hits",
@@ -467,7 +468,6 @@ mod.scoreboard_rows = {
 		validation = "ASC",
 		iteration = "ADD",
 		group = "offense",
-		parent = "special_hits",
 		setting = "plugin_special_hits",
 	},
 	-- Lesser enemies
@@ -564,6 +564,7 @@ mod.scoreboard_rows = {
 		setting = "plugin_melee_ranged_threats",
 	},
 	-- Melee Threats
+	--[[
 	{name = "melee_threats",
 		text = "row_melee_threats",
 		validation = "ASC",
@@ -579,6 +580,7 @@ mod.scoreboard_rows = {
 		parent = "melee_ranged_threats",
 		setting = "plugin_melee_ranged_threats",
 	},
+	--]]
 	{name = "cultist_berzerker",
 		text = "Dreg Rager",
 		validation = "ASC",
@@ -620,6 +622,7 @@ mod.scoreboard_rows = {
 		setting = "plugin_melee_ranged_threats",
 	},
 	-- Ranged Threats
+	--[[
 	{name = "ranged_threats",
 		text = "row_ranged_threats",
 		validation = "ASC",
@@ -635,6 +638,7 @@ mod.scoreboard_rows = {
 		parent = "melee_ranged_threats",
 		setting = "plugin_melee_ranged_threats",
 	},
+	--]]
 	{name = "cultist_gunner",
 		text = "Dreg Gunner",
 		validation = "ASC",
