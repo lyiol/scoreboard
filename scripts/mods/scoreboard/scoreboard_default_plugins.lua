@@ -306,6 +306,7 @@ end
 -- ##### └─┘┘└┘└─┘┴ ┴ ┴   └─┘ ┴ ┴ ┴└─┘└─┘└─┘┴└─ #######################################################################
 
 mod.enemy_stagger = function(self, event_name, event_index, unit, first_person, context)
+	mod:echo("stagger")
 	if mod.last_enemy_interaction[unit] then
 		local player_unit = mod.last_enemy_interaction[unit]
 		local player = mod:player_from_unit(player_unit)

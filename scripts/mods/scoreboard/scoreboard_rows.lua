@@ -426,6 +426,7 @@ mod.scoreboard_rows = {
 		group = "offense",
 		setting = "plugin_boss_damage_dealt",
 	},
+	--[[
 	{name = "elites_damage_dealt",
 		text = "row_elites_damage_dealt",
 		validation = "ASC",
@@ -438,6 +439,7 @@ mod.scoreboard_rows = {
 		iteration = "ADD",
 		group = "offense",
 	},
+	--]]
 	--[[
 	{name = "is_empty3",
 		is_empty = true,
