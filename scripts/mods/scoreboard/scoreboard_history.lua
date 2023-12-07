@@ -273,7 +273,9 @@ mod.save_scoreboard_history_entry = function(self, sorted_rows)
 				local icon = tostring(this_row.icon)
 				local icon_package = tostring(this_row.icon_package)
 				local icon_width = tostring(this_row.icon_width)
+				if (validation ~= nil) then
 				file:write("#row;"..name..";"..index..";"..val_count..";"..text..";"..validation..";"..iteration..";"..visible..";"..group..";"..setting..";"..parent..";"..is_time..";"..summary..";"..normalize..";"..icon..";"..icon_package..";"..icon_width.."\n")
+				end
 				if this_row.data and type(this_row.data) == "table" then
 					for account_id, data in pairs(this_row.data) do
 						file:write(account_id..";"..data.score..";"..(data.is_best and "1" or "0")..";"..(data.is_worst and "1" or "0")..(data.text and ";"..data.text or "").."\n")
