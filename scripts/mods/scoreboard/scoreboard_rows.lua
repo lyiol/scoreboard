@@ -433,18 +433,19 @@ mod.scoreboard_rows = {
 		group = "offense",
 		setting = "plugin_boss_damage_dealt",
 	},
-	--[[
 	{name = "elites_damage_dealt",
 		text = "row_elites_damage_dealt",
 		validation = "ASC",
 		iteration = "ADD",
 		group = "offense",
 	},
+	--[[
 	{name = "lesser_damage_dealt",
 		text = "row_lesser_damage_dealt",
 		validation = "ASC",
 		iteration = "ADD",
 		group = "offense",
+		less_important = true,
 	},
 	--]]
 	--[[

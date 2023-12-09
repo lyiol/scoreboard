@@ -814,6 +814,10 @@ function(func, self, damage_profile, attacked_unit, attacking_unit, attack_direc
 			if table.array_contains(mod.bosses, breed_or_nil.name) then
 				-- Enemy is boss
 				mod:update_stat("boss_damage_dealt", account_id, actual_damage)
+			elseif table.array_contains(mod.lesser_enemies, breed_or_nil.name) then
+				--mod:update_stat("lesser_damage_dealt", account_id, actual_damage)
+			else
+				mod:update_stat("elites_damage_dealt", account_id, actual_damage)
 			end 
 
 			mod:update_stat("actual_damage_dealt", account_id, actual_damage)
