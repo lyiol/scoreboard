@@ -740,11 +740,14 @@ return {
 		["zh-cn"] = "格挡攻击",
 	},
 	row_attacks_blocked = {
-		en = "Attacks blocked",
+		en = "Attacks Blocked",
 		de = "Attacken geblockt",
 		fr = "Attaques bloquées",
 		ru = "Атак заблокировано",
 		["zh-cn"] = "格挡攻击",
+	},
+	row_attacks_dodged = {
+		en = "Attacks Dodged",
 	},
 	-- Special hits
 	plugin_special_hits = {

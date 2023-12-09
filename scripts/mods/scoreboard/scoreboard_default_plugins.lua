@@ -705,6 +705,18 @@ function(func, self, channel_id, unit_id, attacking_unit_id, hit_world_position,
 	func(self, channel_id, unit_id, attacking_unit_id, hit_world_position, block_broken, weapon_template_id, attack_type_id, ...)
 end)
 
+mod:hook_require("scripts/extension_systems/character_state_machine/character_states/utilities/dodge", function(Dodge)
+	mod:hook(Dodge, "sucessful_dodge", function(func, dodging_unit, attacking_unit, attack_type, dodge_type, attacking_breed, ...)
+		mod:echo("dodge hook")
+		local player = mod:player_from_unit(dodging_unit)
+		if player then
+			local account_id = player:account_id() or player:name()
+			mod:update_stat("attacks_dodged", account_id, 1)
+		end
+	  	func(dodging_unit, attacking_unit, attack_type, dodge_type, attacking_breed, ...)
+	end)
+end)
+
 -- ##### ┌┬┐┌─┐┌┬┐┌─┐┌─┐┌─┐  ┌─┐┌┐┌┌┬┐  ┬┌─┬┬  ┬  ┌─┐ #################################################################
 -- #####  ││├─┤│││├─┤│ ┬├┤   ├─┤│││ ││  ├┴┐││  │  └─┐ #################################################################
 -- ##### ─┴┘┴ ┴┴ ┴┴ ┴└─┘└─┘  ┴ ┴┘└┘─┴┘  ┴ ┴┴┴─┘┴─┘└─┘ #################################################################
@@ -719,6 +731,17 @@ mod.bosses = {
 	"renegade_twin_captain",
 	"renegade_twin_captain_two",
 }
+
+mod.lesser_enemies = {
+	"chaos_newly_infected",
+	"chaos_poxwalker",
+	"cultist_assault",
+	"cultist_melee",
+	"renegade_assault",
+	"renegade_melee",
+	"renegade_rifleman",
+}
+
 mod.current_health = {}
 mod.last_enemy_interaction = {}
 

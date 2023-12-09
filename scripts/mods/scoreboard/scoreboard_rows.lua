@@ -142,6 +142,13 @@ mod.scoreboard_rows = {
 		group = "defense",
 		setting = "plugin_attacks_blocked",
 	},
+	{name = "attacks_dodged",
+		text = "row_attacks_dodged",
+		validation = "ASC",
+		iteration = "ADD",
+		group = "defense",
+		setting = "plugin_attacks_blocked",
+	},
 	-- Coherency
 	{name = "coherency_efficiency",
 		text = "row_coherency_efficiency",
