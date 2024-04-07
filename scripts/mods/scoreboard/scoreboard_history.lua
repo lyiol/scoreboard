@@ -217,7 +217,7 @@ mod.save_scoreboard_history_entry = function(self, sorted_rows)
 	for _, player in pairs(players) do
 		-- local player = players[p]
 		num_players = num_players + 1
-		if num_players < 5 then
+		if num_players < 8 then
 			local account_id = player:account_id() or player:name()
 			local symbol = player._profile.archetype.string_symbol
 			file:write(num_players..";"..account_id..";"..player:name()..";"..symbol.."\n")
@@ -278,7 +278,11 @@ mod.save_scoreboard_history_entry = function(self, sorted_rows)
 				end
 				if this_row.data and type(this_row.data) == "table" then
 					for account_id, data in pairs(this_row.data) do
-						file:write(account_id..";"..data.score..";"..(data.is_best and "1" or "0")..";"..(data.is_worst and "1" or "0")..(data.text and ";"..data.text or "").."\n")
+						file:write(account_id..";"..data.score..";"..(data.is_best and "1" or "0")..";"..(data.is_worst and "1" or "0")..(data.text and ";"..data.text or ";"))
+						if (data.name ~= nil and data.name ~= "") then
+							file:write(";"..data.name)
+						end
+						file:write("\n")
 					end
 				end
 				index = index + 1

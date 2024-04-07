@@ -330,6 +330,10 @@ mod.update_row_values = function(self, this_row, sorted_rows, loaded_players)
                 this_row.data[account_id] = this_row.data[account_id] or {}
                 -- mod:echo(score)
                 this_row.data[account_id].score = score --/ #rows
+                local player_name = player:name()
+                if (player_name ~= nil and player_name ~= "") then 
+                    this_row.data[account_id].name = player_name
+                end
             end
             player_num = player_num + 1
         end
@@ -418,7 +422,8 @@ mod.create_row_widget = function(self, index, current_offset, visible_rows, this
                     if row.data then
                         if not row.data[account_id] then
                             row.data[account_id] = {
-                                score = 0
+                                score = 0,
+                                name = ""
                             }
                         end
                     end
@@ -609,6 +614,10 @@ mod.create_row_widget = function(self, index, current_offset, visible_rows, this
                 this_row.data[account_id] = this_row.data[account_id] or {}
                 -- mod:echo(score)
                 this_row.data[account_id].score = score --/ #rows
+                local player_name = player:name()
+                if (player_name ~= nil and player_name ~= "") then 
+                    this_row.data[account_id].name = player_name
+                end
             end
             player_num = player_num + 1
         end
