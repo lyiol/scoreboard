@@ -458,8 +458,9 @@ mod.load_scoreboard_history_entry = function(self, path, date, only_head)
 				local val_info = split(line, ";")
 				local score = tostring(val_info[2])
 				local text = nil
-				if val_info[5] then
-					text = val_info[5]
+				if val_info[5] and val_info[5] ~= '' then
+					-- I dunno why this doesn't work it still picks up the player name as text
+					-- text = val_info[5]
 				end
 				entry.rows[row_index].data[val_info[1]] = {
 					score = tonumber(score),
