@@ -815,13 +815,13 @@ function(func, self, damage_profile, attacked_unit, attacking_unit, attack_direc
 				-- Enemy is boss
 				mod:update_stat("boss_damage_dealt", account_id, actual_damage)
 			elseif table.array_contains(mod.lesser_enemies, breed_or_nil.name) then
-				--mod:update_stat("lesser_damage_dealt", account_id, actual_damage)
+				mod:update_stat("lesser_damage_dealt", account_id, actual_damage)
 			else
 				mod:update_stat("elites_damage_dealt", account_id, actual_damage)
 			end 
 
 			mod:update_stat("actual_damage_dealt", account_id, actual_damage)
-			mod:update_stat("overkill_damage_dealt", account_id, overkill_damage)
+			mod:update_stat("overkill_damage_dealt2", account_id, overkill_damage)
 
 			-- update melee/ranged damage
 			if (attack_type ~= nil) then
@@ -829,6 +829,8 @@ function(func, self, damage_profile, attacked_unit, attacking_unit, attack_direc
 					mod:update_stat("melee_damage_dealt", account_id, actual_damage)
 				elseif (attack_type == "ranged") then
 					mod:update_stat("ranged_damage_dealt", account_id, actual_damage)
+				else
+					mod:update_stat("other_damage_dealt", account_id, actual_damage)
 				end
 			else
 				-- it's nil attack_type, like bleed?

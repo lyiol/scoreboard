@@ -650,7 +650,7 @@ return {
 		["zh-cn"] = "伤害",
 	},
 	row_overkill_damage_dealt = {
-		en = "Overkill",
+		en = "    Overkill",
 		de = "Overkill",
 		fr = "Overkill",
 		ru = "Избыточно",

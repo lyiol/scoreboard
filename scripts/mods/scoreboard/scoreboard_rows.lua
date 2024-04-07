@@ -411,6 +411,13 @@ mod.scoreboard_rows = {
 		group = "offense",
 		less_important = true,
     },
+	{name = "overkill_damage_dealt2",
+		text = "row_overkill_damage_dealt",
+		validation = "DESC",
+		iteration = "ADD",
+		group = "offense",
+		less_important = true,
+	},
 	--[[
 	{name = "is_empty2",
 		is_empty = true,
@@ -439,15 +446,13 @@ mod.scoreboard_rows = {
 		iteration = "ADD",
 		group = "offense",
 	},
-	--[[
 	{name = "lesser_damage_dealt",
 		text = "row_lesser_damage_dealt",
 		validation = "ASC",
 		iteration = "ADD",
 		group = "offense",
-		less_important = true,
+		--[[less_important = true,--]]
 	},
-	--]]
 	--[[
 	{name = "is_empty3",
 		is_empty = true,
