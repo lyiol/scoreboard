@@ -728,6 +728,7 @@ mod.bosses = {
 	"chaos_plague_ogryn",
 	"chaos_plague_ogryn_sprayer",
 	"renegade_captain",
+	"cultist_captain",
 	"renegade_twin_captain",
 	"renegade_twin_captain_two",
 }
@@ -735,6 +736,7 @@ mod.bosses = {
 mod.lesser_enemies = {
 	"chaos_newly_infected",
 	"chaos_poxwalker",
+	"chaos_armored_infected",
 	"cultist_assault",
 	"cultist_melee",
 	"renegade_assault",
