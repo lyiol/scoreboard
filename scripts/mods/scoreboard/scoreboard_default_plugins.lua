@@ -745,6 +745,7 @@ mod.lesser_enemies = {
 }
 
 mod.current_health = {}
+mod.current_toughness = {}
 mod.last_enemy_interaction = {}
 
 mod:hook(CLASS.AttackReportManager, "add_attack_result",
@@ -780,6 +781,51 @@ function(func, self, damage_profile, attacked_unit, attacking_unit, attack_direc
 			-- Set last interacting player_unit
 			mod.last_enemy_interaction[attacked_unit] = attacking_unit
 
+            if damage_efficiency == "negated" then
+                local unit_toughness_extension = ScriptUnit.has_extension(attacked_unit, "toughness_system")
+
+                if unit_toughness_extension then
+                    local new_toughness_damage = unit_toughness_extension:toughness_damage()
+                    -- initialize current_toughness
+                    if mod.current_toughness[attacked_unit] == nil then
+                        mod.current_toughness[attacked_unit] = 0
+                    end
+                    local current_toughness = mod.current_toughness[attacked_unit]
+                    
+                    -- calculate toughness damage taken 
+                    local toughness_damage_dealt = 0
+                    -- hack: if the new toughness is more than 10000 units away from the recorded toughness then it's likely there was a full regen from knockdown, so we can assume that the current damage taken was the damage dealt
+                    if current_toughness == 0 or (current_toughness - new_toughness_damage) >= 10000 then 
+                        toughness_damage_dealt = new_toughness_damage
+                    else
+                        --TODO: if the shield has regened then this mod won't know about it; the damage recorded will be reduced by the amount it has regened since, down to 0 if there had been more regen then the damage dealt
+                        toughness_damage_dealt =  math.max((new_toughness_damage - current_toughness), 0)
+                    end
+
+                    -- record current toughness damage taken
+                    mod.current_toughness[attacked_unit] = new_toughness_damage
+                    mod:update_stat("boss_damage_dealt", account_id, toughness_damage_dealt)
+                    mod:update_stat("actual_damage_dealt", account_id, toughness_damage_dealt)
+                    
+                    -- update melee/ranged damage
+                    if (attack_type ~= nil) then
+                        if (attack_type == "melee") then
+                            mod:update_stat("melee_damage_dealt", account_id, toughness_damage_dealt)
+                        elseif (attack_type == "ranged") then
+                            mod:update_stat("ranged_damage_dealt", account_id, toughness_damage_dealt)
+                        else
+                            mod:update_stat("other_damage_dealt", account_id, toughness_damage_dealt)
+                        end
+                    else
+                        -- it's nil attack_type, like bleed?
+                        mod:update_stat("other_damage_dealt", account_id, toughness_damage_dealt)
+                    end
+                
+                    --mod:echo("total toughness damage taken: "..math.floor(new_toughness_damage))
+                    --mod:echo("toughness damage dealt: "..math.floor(toughness_damage_dealt))
+                end
+            end
+
 			-- Get health extension
 			local current_health = mod.current_health[attacked_unit]
 			local unit_health_extension = ScriptUnit.has_extension(attacked_unit, "health_system")
@@ -807,6 +853,9 @@ function(func, self, damage_profile, attacked_unit, attacking_unit, attack_direc
 				overkill_damage = damage - actual_damage
 				-- Update health
 				mod.current_health[attacked_unit] = nil
+                if mod.current_toughness[attacked_unit] then
+                    mod.current_toughness[attacked_unit] = nil
+                end
 				-- Update scoreboard
 				-- mod:echo(breed_or_nil.name)
 				mod:update_stat(breed_or_nil.name, account_id, 1)

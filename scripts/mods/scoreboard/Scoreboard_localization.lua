@@ -716,6 +716,9 @@ return {
 	row_lesser_damage_dealt = {
         en = "Lessers Damage Dealt",
     },
+    row_shield_damage_dealt = {
+        en = "Shield Damage Dealt",
+    },
 	-- Enemies staggered
 	plugin_enemies_staggerd = {
 		en = "Enemies Staggered",

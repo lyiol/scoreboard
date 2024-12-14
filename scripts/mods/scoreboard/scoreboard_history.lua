@@ -204,7 +204,11 @@ mod.save_scoreboard_history_entry = function(self, sorted_rows)
 	end
 
 	-- Mission
-	local timer = _os.time() - self.timer
+    local self_timer = 0
+    if self.timer ~= nil then
+        self_timer = self.timer
+    end
+	local timer = _os.time() - self_timer
 	file:write("#mission;"..tostring(self.mission_name)..";"..tostring(self.mission_challenge)..";"..tostring(self.mission_circumstance)..";"..tostring(self.victory_defeat)..";"..tostring(timer).."\n")
 
 	-- Players

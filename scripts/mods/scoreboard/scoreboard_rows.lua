@@ -453,6 +453,14 @@ mod.scoreboard_rows = {
 		group = "offense",
 		--[[less_important = true,--]]
 	},
+    --[[
+    {name = "shield_damage_dealt",
+		text = "row_shield_damage_dealt",
+		validation = "ASC",
+		iteration = "ADD",
+		group = "offense",
+	},
+    --]]
 	--[[
 	{name = "is_empty3",
 		is_empty = true,
