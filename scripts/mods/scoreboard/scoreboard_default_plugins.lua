@@ -845,7 +845,12 @@ function(func, self, damage_profile, attacked_unit, attacking_unit, attack_direc
 			elseif attack_result == "died" then
 				-- Current health
 				if not current_health then
-					current_health = damage
+					local max_health = unit_health_extension and unit_health_extension:max_health()
+					if max_health then
+						current_health = max_health
+					else
+						current_health = damage
+					end
 				end
 				-- Actual damage
 				actual_damage = current_health
