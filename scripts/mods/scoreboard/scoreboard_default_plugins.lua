@@ -848,6 +848,7 @@ function(func, self, damage_profile, attacked_unit, attacking_unit, attack_direc
 					local max_health = unit_health_extension and unit_health_extension:max_health()
 					if max_health then
 						current_health = max_health
+						--mod:echo("one shot triggered")
 					else
 						current_health = damage
 					end

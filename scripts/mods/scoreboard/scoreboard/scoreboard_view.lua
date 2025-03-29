@@ -983,14 +983,14 @@ mod.setup_row_widgets = function(self, loaded_rows, groups, row_widgets, widgets
                     end
                 end
                 
-                --if this_row.name == "actual_damage_dealt" then
-                --    if this_row.data ~= nil then
-                --        for k, v in pairs (this_row.data) do 
-                --            local local_name = v.name or k
-                --            mod:echo(local_name .. ": damage dealt: " .. math.floor(v.score))
-                --        end
-                --    end
-                --end
+                if this_row.name == "actual_damage_dealt" then
+                    if this_row.data ~= nil then
+                        for k, v in pairs (this_row.data) do 
+                            local local_name = v.name or k
+                            mod:echo(local_name .. ": damage dealt: " .. math.floor(v.score))
+                        end
+                    end
+                end
             end
             index = index + 1
         end

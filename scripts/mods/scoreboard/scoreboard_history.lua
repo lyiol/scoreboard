@@ -224,6 +224,9 @@ mod.save_scoreboard_history_entry = function(self, sorted_rows)
 		if num_players < 8 then
 			local account_id = player:account_id() or player:name()
 			local symbol = player._profile.archetype.string_symbol
+			if symbol == nil then
+				symbol = ''
+			end
 			file:write(num_players..";"..account_id..";"..player:name()..";"..symbol.."\n")
 		end
 	end
