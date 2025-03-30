@@ -13,6 +13,7 @@ local UIFonts = mod:original_require("scripts/managers/ui/ui_fonts")
 local UIRenderer = mod:original_require("scripts/managers/ui/ui_renderer")
 local UIWidget = mod:original_require("scripts/managers/ui/ui_widget")
 local ViewElementInputLegend = mod:original_require("scripts/ui/view_elements/view_element_input_legend/view_element_input_legend")
+local UiSettings = require("scripts/settings/ui/ui_settings")
 local USE_EXAMPLE_DATA = true
 local DEBUG = false
 local base_z = 100
@@ -449,7 +450,7 @@ mod.create_row_widget = function(self, index, current_offset, visible_rows, this
                     if mod:is_me(account_id) then
                         name = TextUtilities.apply_color_to_text(name, Color.ui_orange_light(255, true))
                     end
-                    local symbol = player.string_symbol or player._profile and player._profile.archetype.string_symbol
+                    local symbol = player.string_symbol or player._profile and UiSettings.archetype_font_icon[player._profile.archetype.name] or ""
                     if symbol then
                         name = symbol.." "..name
                     end
@@ -798,7 +799,7 @@ mod.create_row_widget = function(self, index, current_offset, visible_rows, this
                 num_players = num_players + 1
                 if num_players <= 4 and ui_renderer then
                     local player_name = player:name()
-                    local symbol = player.string_symbol or player._profile and player._profile.archetype.string_symbol
+                    local symbol = player.string_symbol or player._profile and UiSettings.archetype_font_icon[player._profile.archetype.name] or ""
                     if symbol then
                         player_name = symbol.." "..player_name
                     end

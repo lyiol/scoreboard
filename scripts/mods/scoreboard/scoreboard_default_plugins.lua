@@ -736,6 +736,8 @@ mod.bosses = {
 mod.lesser_enemies = {
 	"chaos_newly_infected",
 	"chaos_poxwalker",
+    "chaos_mutated_poxwalker",
+	"chaos_lesser_mutated_poxwalker",
 	"chaos_armored_infected",
 	"cultist_assault",
 	"cultist_melee",

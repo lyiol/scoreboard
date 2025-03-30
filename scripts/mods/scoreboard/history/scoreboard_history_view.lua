@@ -14,6 +14,7 @@ local TextUtilities = mod:original_require("scripts/utilities/ui/text")
 local Circumstance = mod:original_require("scripts/settings/circumstance/circumstance_templates")
 local Danger = mod:original_require("scripts/settings/difficulty/danger_settings")
 local ScoreboardHistoryView = class("ScoreboardHistoryView", "BaseView")
+local UiSettings = require("scripts/settings/ui/ui_settings")
 
 -- ##### ██╗███╗   ██╗██╗████████╗ ####################################################################################
 -- ##### ██║████╗  ██║██║╚══██╔══╝ ####################################################################################
@@ -194,16 +195,16 @@ ScoreboardHistoryView._setup_category_config = function(self, scan_dir)
             if category_config.timer ~= "" then
                 mission_subname = "\n"..category_config.timer
             end
-            -- if category_config.mission_challenge ~= "" then
-                -- local mission_challenge = Danger.by_index[tonumber(category_config.mission_challenge)]
-                -- if mission_challenge then
-                    -- if mission_subname == "" then
-                        -- mission_subname = "\n"..Localize(mission_challenge.display_name)
-                    -- else
-                        -- mission_subname = mission_subname.." | "..Localize(mission_challenge.display_name)
-                    -- end
-                -- end
-            -- end
+            if category_config.mission_challenge ~= "" then
+                local mission_challenge = Danger[tonumber(category_config.mission_challenge)]
+                if mission_challenge then
+                    if mission_subname == "" then
+                        mission_subname = "\n"..Localize(mission_challenge.display_name)
+                    else
+                        mission_subname = mission_subname.." | "..Localize(mission_challenge.display_name)
+                    end
+                end
+            end
             if category_config.mission_circumstance ~= "" then
                 local mission_circumstance = Circumstance[category_config.mission_circumstance]
                 if ( mission_circumstance and mission_circumstance.ui ) then
@@ -227,7 +228,7 @@ ScoreboardHistoryView._setup_category_config = function(self, scan_dir)
         if category_config.players then
             for _, player in pairs(category_config.players) do
                 local player_name = player.name
-                local symbol = player.string_symbol or player._profile and player._profile.archetype.string_symbol
+                local symbol = player.string_symbol or player._profile and UiSettings.archetype_font_icon[player._profile.archetype.name] or "" 
                 if symbol then
                     player_name = symbol.." "..player_name
                 end
