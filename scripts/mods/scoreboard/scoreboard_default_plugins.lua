@@ -738,6 +738,7 @@ mod.bosses = {
 	"chaos_daemonhost",
 	"chaos_spawn",
 	"chaos_plague_ogryn",
+	"chaos_ogryn_houndmaster",
 	"chaos_plague_ogryn_sprayer",
 	"renegade_captain",
 	"cultist_captain",
