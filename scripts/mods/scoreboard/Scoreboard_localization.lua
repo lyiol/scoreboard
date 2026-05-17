@@ -734,6 +734,14 @@ return {
 		ru = "Врагов ошеломлено",
 		["zh-cn"] = "踉跄敌人",
 	},
+	-- Downs/Deaths
+	row_downs_deaths = {
+		en = "Downs / Deaths",
+		de = "Gegner gestaggered",
+		fr = "Ennemis vacillés",
+		ru = "Врагов ошеломлено",
+		["zh-cn"] = "踉跄敌人",
+	},
 	-- Attacks blocked
 	plugin_attacks_blocked = {
 		en = "Attacks blocked",
