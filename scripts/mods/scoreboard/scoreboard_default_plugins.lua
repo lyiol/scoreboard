@@ -14,9 +14,7 @@ local TextUtilities = mod:original_require("scripts/utilities/ui/text")
 local UISettings = mod:original_require("scripts/settings/ui/ui_settings")
 local Breed = mod:original_require("scripts/utilities/breed")
 local WalletSettings = mod:original_require("scripts/settings/wallet_settings")
-local PlayerUnitStatus = require("scripts/utilities/attack/player_unit_status")
-local AttackSettings = require("scripts/settings/damage/attack_settings")
-local attack_results = AttackSettings.attack_results
+local PlayerUnitStatus = mod:original_require("scripts/utilities/attack/player_unit_status")
 
 -- #####  █████╗ ███╗   ██╗██╗███╗   ███╗    ███████╗██╗   ██╗███████╗███╗   ██╗████████╗███████╗ #####################
 -- ##### ██╔══██╗████╗  ██║██║████╗ ████║    ██╔════╝██║   ██║██╔════╝████╗  ██║╚══██╔══╝██╔════╝ #####################
@@ -647,47 +645,6 @@ end)
 -- ##### ├┬┘├┤ └┐┌┘│└┐┌┘├┤   ┌┼─  ├┬┘├┤ └─┐│  │ │├┤  ##################################################################
 -- ##### ┴└─└─┘ └┘ ┴ └┘ └─┘  └┘   ┴└─└─┘└─┘└─┘└─┘└─┘ ##################################################################
 
-mod:hook_safe("AttackReportManager", "_process_attack_result", function (self, buffer_data)
-
-	local attacked_unit = buffer_data.attacked_unit
-	local attack_result = buffer_data.attack_result
-	--local damage_insta = buffer_data.damage_profile.unblockable
-	--local damage_spill = buffer_data.damage_profile.on_depleted_toughness_function_override_name == "all_damage_spill_over"
-
-	local killed_unit_data_extension = ScriptUnit.has_extension(attacked_unit, "unit_data_system")
-	local killed_breed_or_nil = killed_unit_data_extension and killed_unit_data_extension:breed()
-	local killed_is_player = Breed.is_player(killed_breed_or_nil)
-	
-	if killed_is_player and (attack_result == attack_results.knock_down or attack_result == attack_results.died) then -- or damage_insta or damage_spill) then
-		
-		local player_unit_spawn_manager = Managers.state.player_unit_spawn
-		local attacked_player = player_unit_spawn_manager:owner(attacked_unit)
-		local account_id = attacked_player and (attacked_player:account_id() or attacked_player:name())
-
-		if account_id then
-
-			Promise.delay(0.1):next(function()
-
-				if not ALIVE[attacked_unit] then
-					-- update something (death)
-					mod:update_stat("player_deaths", account_id, 1)
-					return
-				end
-
-				local killed_character_state_component = killed_unit_data_extension:read_component("character_state")
-				local killed_is_down = PlayerUnitStatus.is_knocked_down(killed_character_state_component)
-				local killed_is_dead = PlayerUnitStatus.is_dead(killed_character_state_component)
-				
-				if killed_is_down then
-					mod:update_stat("player_downs", account_id, 1)
-				elseif killed_is_dead then
-					mod:update_stat("player_deaths", account_id, 1)
-				end	
-			end)
-		end
-	end
-end)
-
 mod._get_player_presentation_name = function (self, unit)
 	local player_default_color = Color.ui_hud_green_light(255, true)
 	local player_unit_spawn_manager = Managers.state.player_unit_spawn
@@ -1048,12 +1005,50 @@ end)
 -- #####  ││├─┤│││├─┤│ ┬├┤    │ ├─┤├┴┐├┤ │││ ##########################################################################
 -- ##### ─┴┘┴ ┴┴ ┴┴ ┴└─┘└─┘   ┴ ┴ ┴┴ ┴└─┘┘└┘ ##########################################################################
 
+local already_downed_players = already_downed_players or {}
+local already_dead_players = already_dead_players or {}
+
 mod:hook(CLASS.PlayerHuskHealthExtension, "fixed_update", function(func, self, unit, dt, t, ...)
+
 	if unit then
+
 		local player = mod:player_from_unit(unit)
-		if player and self._damage and self._damage > 0 then
+		local unit_data_extension = ScriptUnit.has_extension(unit, "unit_data_system")
+
+		if player and unit_data_extension then
+
 			local account_id = player:account_id() or player:name()
-			mod:update_stat("damage_taken", account_id, self._damage)
+
+			if self._damage and self._damage > 0 then
+				mod:update_stat("damage_taken", account_id, self._damage)
+			end
+
+			local character_state_component = unit_data_extension:read_component("character_state")
+			local is_knocked_down = PlayerUnitStatus.is_knocked_down(character_state_component)
+			local is_dead = PlayerUnitStatus.is_dead(character_state_component)
+
+			if is_knocked_down then
+				if not already_downed_players[account_id] then
+					already_downed_players[account_id] = true
+					mod:update_stat("player_downs", account_id, 1)
+				end
+			else
+				if already_downed_players[account_id] then
+					already_downed_players[account_id] = false
+				end
+			end
+
+			if is_dead then
+				if not already_dead_players[account_id] then
+					already_dead_players[account_id] = true
+					mod:update_stat("player_deaths", account_id, 1)
+				end
+			else
+				if already_dead_players[account_id] then
+					already_dead_players[account_id] = false
+				end
+			end
+
 		end
 	end
 	func(self, unit, dt, t, ...)
