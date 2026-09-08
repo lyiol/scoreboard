@@ -762,6 +762,8 @@ mod.lesser_enemies = {
 	"renegade_assault",
 	"renegade_melee",
 	"renegade_rifleman",
+	"renegade_vanguard",
+	"cultist_vanguard",
 }
 
 mod.current_health = {}
