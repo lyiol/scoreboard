@@ -749,6 +749,7 @@ mod.bosses = {
 	"cultist_captain",
 	"renegade_twin_captain",
 	"renegade_twin_captain_two",
+	"renegade_wizard",
 }
 
 mod.lesser_enemies = {
