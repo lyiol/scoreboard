@@ -872,10 +872,23 @@ function(func, self, damage_profile, attacked_unit, attacking_unit, attack_direc
 					if max_health then
 						current_health = max_health
 						--mod:echo("one shot triggered")
+
+						if damage < max_health then
+							-- something buggy happened, it was a one shot but the damage was less than the enemy health?
+							if table.array_contains(mod.bosses, breed_or_nil.name) then
+								mod:update_stat("boss_bugged", account_id, 1)
+							elseif table.array_contains(mod.lesser_enemies, breed_or_nil.name) then
+								mod:update_stat("mobs_bugged", account_id, 1)
+							else
+								mod:update_stat("elite_bugged", account_id, 1)
+							end 
+							current_health = 0 -- don't record any damage
+						end
 					else
 						current_health = damage
 					end
 				end
+
 				-- Actual damage
 				actual_damage = current_health
 				-- Overkill damage
@@ -888,6 +901,11 @@ function(func, self, damage_profile, attacked_unit, attacking_unit, attack_direc
 				-- Update scoreboard
 				-- mod:echo(breed_or_nil.name)
 				mod:update_stat(breed_or_nil.name, account_id, 1)
+
+				--if breed_or_nil and breed_or_nil.name == "renegade_wizard" then
+					-- don't count spillway boss death, there might be something bugged cause you can keep shooting him
+					--actual_damage = 0
+				--end
 			end
 			
 			-- Check for boss

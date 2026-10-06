@@ -992,6 +992,39 @@ mod.setup_row_widgets = function(self, loaded_rows, groups, row_widgets, widgets
                         end
                     end
                 end
+
+                if this_row.name == "boss_bugged" then
+                    if this_row.data ~= nil then
+                        for k, v in pairs (this_row.data) do 
+                            if v.score > 0 then
+                                local local_name = v.name or k
+                                mod:echo(local_name .. ": boss bugged: " .. math.floor(v.score))
+                            end
+                        end
+                    end
+                end
+
+                if this_row.name == "elite_bugged" then
+                    if this_row.data ~= nil then
+                        for k, v in pairs (this_row.data) do 
+                            if v.score > 0 then
+                                local local_name = v.name or k
+                                mod:echo(local_name .. ": elite bugged: " .. math.floor(v.score))
+                            end
+                        end
+                    end
+                end
+
+                if this_row.name == "mobs_bugged" then
+                    if this_row.data ~= nil then
+                        for k, v in pairs (this_row.data) do
+                            if v.score > 0 then
+                                local local_name = v.name or k
+                                mod:echo(local_name .. ": mobs bugged: " .. math.floor(v.score))
+                            end
+                        end
+                    end
+                end
             end
             index = index + 1
         end
